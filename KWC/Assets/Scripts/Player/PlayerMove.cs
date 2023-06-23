@@ -48,8 +48,10 @@ public class PlayerMove : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.F))
         {
             isDash = true;
+            
             rb.velocity = Vector2.down * dashSpeed;
         }
+        
         if (dashTime <= 0)
         {
             defaultSpeed = speed;
