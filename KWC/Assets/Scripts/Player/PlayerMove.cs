@@ -6,16 +6,15 @@ public class PlayerMove : MonoBehaviour
 {
    
     public float jumpPower;
-    public float speed;
+    public float speed = 10;
     private Rigidbody2D rb;
     public bool isGround = false;
-    public bool isDash = false;
+    public bool isDash;
     private float defaultSpeed;
     public float dashSpeed;
     public float defaultTime;
     private float dashTime;
-    private int dashCount = 0;
-    private float lastDashTime;
+    
 
     void Start()
     {
@@ -28,7 +27,6 @@ public class PlayerMove : MonoBehaviour
     {
         float x = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(x * defaultSpeed, rb.velocity.y);
-
         
     }
     
@@ -47,9 +45,19 @@ public class PlayerMove : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.F))
         {
-            isDash = true;
-            rb.velocity = Vector2.down * dashSpeed;
+
+            if (!isDash) 
+            {
+                isDash = true;
+                rb.velocity = Vector2.down * dashSpeed;
+            }
+
         }
+        else
+        {
+            isDash = false;
+        }
+
         if (dashTime <= 0)
         {
             defaultSpeed = speed;
@@ -63,17 +71,23 @@ public class PlayerMove : MonoBehaviour
             dashTime -= Time.deltaTime;
             defaultSpeed = dashSpeed;
         }
+        if (!isDash)
+        {
+            float x = Input.GetAxisRaw("Horizontal");
+            rb.velocity = new Vector2(x * defaultSpeed, rb.velocity.y);
+        }
+
         
-        isDash = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if(collision.gameObject.name.Equals("ground"))
+        if(other.gameObject.tag == ("ground"))
         {
             isGround = false;
         }
     }
+    
 
     private void Jump()
     {
