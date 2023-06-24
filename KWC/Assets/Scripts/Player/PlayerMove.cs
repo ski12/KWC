@@ -12,8 +12,8 @@ public class PlayerMove : MonoBehaviour
     public bool isDash;
     private float defaultSpeed;
     public float dashSpeed;
-    public float defaultTime;
-    private float dashTime;
+    public float dashTime;
+    private float x;
     
 
     void Start()
@@ -25,9 +25,12 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float x = Input.GetAxisRaw("Horizontal");
+        if (isDash == false)
+        {
+            x = Input.GetAxisRaw("Horizontal");
+            
+        }
         rb.velocity = new Vector2(x * defaultSpeed, rb.velocity.y);
-        
     }
     
     void Update()
@@ -38,55 +41,48 @@ public class PlayerMove : MonoBehaviour
             Jump();
             
         }
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        if(Input.GetKeyDown(KeyCode.LeftShift) && defaultSpeed != 0 && !isDash)
         {
+            defaultSpeed = dashSpeed;
             isDash = true;
-            
+            StartCoroutine(DashEnd());
         }
         if(Input.GetKeyDown(KeyCode.F))
         {
-
-            if (!isDash) 
-            {
-                isDash = true;
-                rb.velocity = Vector2.down * dashSpeed;
-            }
+            
+            defaultSpeed = 0;
+            rb.velocity = Vector2.down * dashSpeed;
+            
 
         }
-        else
-        {
-            isDash = false;
-        }
 
-        if (dashTime <= 0)
-        {
-            defaultSpeed = speed;
-            if (isDash)
-            {
-                dashTime = defaultTime;
-            }
-        }
-        else
-        {
-            dashTime -= Time.deltaTime;
-            defaultSpeed = dashSpeed;
-        }
-        if (!isDash)
-        {
-            float x = Input.GetAxisRaw("Horizontal");
-            rb.velocity = new Vector2(x * defaultSpeed, rb.velocity.y);
-        }
 
         
     }
 
+    IEnumerator DashEnd()
+    {
+        yield return new WaitForSeconds(dashTime);
+        defaultSpeed = speed;
+        isDash = false;
+    }
     private void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.tag == ("ground"))
         {
+            defaultSpeed = speed;
             isGround = false;
         }
+        if(other.gameObject.tag == ("ang"))
+        {
+            isGround = false;
+        }
+        if (other.gameObject.tag == ("die"))
+        {
+            Debug.Log("dddd");
+        }
     }
+
     
 
     private void Jump()
