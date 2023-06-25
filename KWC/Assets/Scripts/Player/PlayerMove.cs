@@ -41,7 +41,7 @@ public class PlayerMove : MonoBehaviour
             Jump();
             
         }
-        if(Input.GetKeyDown(KeyCode.LeftShift) && defaultSpeed != 0 && !isDash)
+        if(Input.GetKeyDown(KeyCode.P) && defaultSpeed != 0 && !isDash)
         {
             defaultSpeed = dashSpeed;
             isDash = true;
@@ -80,6 +80,7 @@ public class PlayerMove : MonoBehaviour
         if (other.gameObject.tag == ("die"))
         {
             Debug.Log("dddd");
+            Destroy(gameObject);
         }
     }
 
