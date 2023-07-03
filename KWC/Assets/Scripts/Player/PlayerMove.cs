@@ -16,6 +16,7 @@ public class PlayerMove : MonoBehaviour
     private float x;
     
 
+
     void Start()
     {
         defaultSpeed = speed;
@@ -59,37 +60,40 @@ public class PlayerMove : MonoBehaviour
 
         
     }
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == ("ground"))
+        {
+            defaultSpeed = speed;
+            isGround = false;
+        }
+    }
     IEnumerator DashEnd()
     {
         yield return new WaitForSeconds(dashTime);
         defaultSpeed = speed;
         isDash = false;
     }
-    private void OnCollisionEnter2D(Collision2D other)
+    public void LandingJump()
     {
-        if(other.gameObject.tag == ("ground"))
+
+        if(rb.velocity.y < 0)
         {
-            defaultSpeed = speed;
-            isGround = false;
+            RaycastHit2D raycastHit = Physics2D.Raycast(rb.position, Vector2.down, 2, LayerMask.GetMask("ground"));
+
+            
         }
-        if(other.gameObject.tag == ("ang"))
-        {
-            isGround = false;
-        }
-        if (other.gameObject.tag == ("die"))
-        {
-            Debug.Log("dddd");
-            Destroy(gameObject);
-        }
+        
+        
     }
 
     
 
-    private void Jump()
+
+
+    public void Jump()
     {
         rb.velocity = Vector2.up * jumpPower;
-        
     }
 
     

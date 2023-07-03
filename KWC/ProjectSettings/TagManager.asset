@@ -5,8 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - ground
-  - ang
   - die
+  - del
+  - Block
+  - 'die_collider '
+  - instant_death
   layers:
   - Default
   - TransparentFX
