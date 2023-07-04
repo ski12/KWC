@@ -19,7 +19,7 @@ public class hurtPosition : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(Physics2D.Raycast(transform.position + new Vector3(0, 0.5f, 0), transform.up, 1, drillMask))
+        if(Physics2D.Raycast(transform.position + new Vector3(0, 1f, 0), transform.up, 1, drillMask))
         {
             Destroy(gameObject);
         }
@@ -28,6 +28,6 @@ public class hurtPosition : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position + new Vector3(0, 0.5f, 0), transform.up * 1);
+        Gizmos.DrawRay(transform.position + new Vector3(0, 1f, 0), transform.up * 1);
     }
 }

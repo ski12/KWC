@@ -10,18 +10,25 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody2D rb;
     public bool isGround = false;
     public bool isDash;
+    private bool isRun;
     private float defaultSpeed;
     public float dashSpeed;
     public float dashTime;
     private float x;
-    
+    private Animator anim;
 
+    SpriteRenderer Spr;
+
+    [SerializeField]
+    private LayerMask GroundCheck;
 
     void Start()
     {
+        Spr= GetComponent<SpriteRenderer>();
+        anim= GetComponent<Animator>();
         defaultSpeed = speed;
         rb = GetComponent<Rigidbody2D>();
-        
+        isRun = false;
     }
 
     private void FixedUpdate()
@@ -32,15 +39,32 @@ public class PlayerMove : MonoBehaviour
             
         }
         rb.velocity = new Vector2(x * defaultSpeed, rb.velocity.y);
+        if (Input.GetKey(KeyCode.D))
+        {
+            Spr.flipX = false;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            Spr.flipX = true;
+        }
+        if (rb.velocity.x != 0)
+        {
+            anim.SetBool("IsRun", true);
+        }
+        else
+        {
+            anim.SetBool("IsRun", false);
+        }
     }
     
     void Update()
     {
-        if(Input.GetButtonDown("Jump") && !isGround)
+        if(Input.GetKeyDown(KeyCode.Space) && isGround)
         {
-            isGround = true;
-            Jump();
-            
+            isGround= false;
+            rb.velocity = Vector2.up * jumpPower;
+          
+
         }
         if(Input.GetKeyDown(KeyCode.P) && defaultSpeed != 0 && !isDash)
         {
@@ -57,44 +81,36 @@ public class PlayerMove : MonoBehaviour
 
         }
 
-
-        
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == ("ground"))
+        if (Physics2D.Raycast(transform.position + new Vector3(0, -0.8f, 0), transform.up, -1, GroundCheck))
         {
             defaultSpeed = speed;
-            isGround = false;
+            isGround = true;
         }
+        else
+        {
+            isGround= false;
+        }
+
     }
+
     IEnumerator DashEnd()
     {
         yield return new WaitForSeconds(dashTime);
         defaultSpeed = speed;
         isDash = false;
     }
-    public void LandingJump()
-    {
-
-        if(rb.velocity.y < 0)
-        {
-            RaycastHit2D raycastHit = Physics2D.Raycast(rb.position, Vector2.down, 2, LayerMask.GetMask("ground"));
-
-            
-        }
-        
-        
-    }
 
     
 
 
-
-    public void Jump()
+    private void OnDrawGizmos()
     {
-        rb.velocity = Vector2.up * jumpPower;
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position + new Vector3(0, -0.8f, 0), transform.up * -1);
     }
 
+
+
+    
     
 }

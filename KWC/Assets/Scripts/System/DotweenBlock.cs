@@ -15,9 +15,17 @@ public class DotweenBlock : MonoBehaviour
     {
         transform.DOMoveY(-22, 10f);
     }
-    // Update is called once per frame
-    
-    
-       
-   
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "phase5gp")
+        {
+            Destroy(gameObject);
+            Debug.Log("123");
+        }
+    }
+
+
+
+
 }

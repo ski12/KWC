@@ -17,4 +17,13 @@ public class DieBlock : MonoBehaviour
     {
         transform.DOMoveY(-22, 5f);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("phase5gp"))
+        {
+            Destroy(gameObject);
+        }
+  
+    }
 }

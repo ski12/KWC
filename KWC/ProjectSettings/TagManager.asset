@@ -10,6 +10,7 @@ TagManager:
   - Block
   - 'die_collider '
   - instant_death
+  - phase5gp
   layers:
   - Default
   - TransparentFX
@@ -46,4 +47,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: 11
+    uniqueID: 3328392453
     locked: 0
