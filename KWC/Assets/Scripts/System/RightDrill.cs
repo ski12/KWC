@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class RightDrill : MonoBehaviour
 {
+    public GameObject UpWire;
+    public GameObject DownWire;
     public GameObject Triangle;
     public GameObject Danger;
     public float DrillCool = 7f;
@@ -16,6 +18,8 @@ public class RightDrill : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UpWire.SetActive(false);
+        DownWire.SetActive(false);
         isCool = true;
         coolTime = DrillCool;
         DangerCoolTime = DangerCool;
@@ -24,7 +28,7 @@ public class RightDrill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isCool && Boss.PhaseCount != 5)
+        if (isCool && Boss.PhaseCount != 7)
         {
             coolTime -= Time.deltaTime;
             if (Boss.PhaseCount == 4)
@@ -40,6 +44,16 @@ public class RightDrill : MonoBehaviour
             }
         }
 
+        if(Boss.PhaseCount == 5)
+        {
+            UpWire.SetActive(true);
+            DownWire.SetActive(true);
+        }
+        else
+        {
+            UpWire.SetActive(false);
+            DownWire.SetActive(false);
+        }
 
     }
 

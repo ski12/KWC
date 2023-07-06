@@ -21,7 +21,6 @@ public class DotweenBlock : MonoBehaviour
         if(collision.tag == "phase5gp")
         {
             Destroy(gameObject);
-            Debug.Log("123");
         }
     }
 

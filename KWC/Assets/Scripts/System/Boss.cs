@@ -23,8 +23,8 @@ public class Boss : MonoBehaviour
     [SerializeField]
     private float maxHp;
 
-    [SerializeField]
-    private float curHp;
+    
+    public static float curHp;
 
     private Vector2 Midpos3;
     private Vector2 pos1;
@@ -50,6 +50,7 @@ public class Boss : MonoBehaviour
     private void Awake()
     {
         bossTeleport = false;
+        curHp = maxHp;
       
     }
     // Start is called before the first frame update
@@ -97,7 +98,7 @@ public class Boss : MonoBehaviour
         {
             phase5();
         }
-        if (curHp <= 10 && PhaseCount == 5)
+        if (curHp <= 10 && PhaseCount == 6)
         {
             phase6();
         }

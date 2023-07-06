@@ -24,7 +24,7 @@ public class LeftDrill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isCool && Boss.PhaseCount != 5)
+        if (isCool && Boss.PhaseCount != 7)
         {
             coolTime -= Time.deltaTime;
             if (Boss.PhaseCount == 4)

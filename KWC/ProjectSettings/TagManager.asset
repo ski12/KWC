@@ -13,6 +13,7 @@ TagManager:
   - phase5gp
   - FiredBottle
   - Gear
+  - Drill
   layers:
   - Default
   - TransparentFX
