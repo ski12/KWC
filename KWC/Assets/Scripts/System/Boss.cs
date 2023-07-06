@@ -9,6 +9,12 @@ public class Boss : MonoBehaviour
     [SerializeField]
     private Slider hpbar;
 
+
+    public GameObject FiredBottle;
+
+    [SerializeField] 
+    private float phase6Time;
+
     [SerializeField]
     private GameObject tp1;
     [SerializeField] 
@@ -34,7 +40,7 @@ public class Boss : MonoBehaviour
     [SerializeField]
     private bool bossTeleport;
 
-    private bool phase5Gp;
+
 
     public float height;
     private float telNumber;
@@ -44,7 +50,7 @@ public class Boss : MonoBehaviour
     private void Awake()
     {
         bossTeleport = false;
-        phase5Gp = false;
+      
     }
     // Start is called before the first frame update
     void Start()
@@ -81,9 +87,13 @@ public class Boss : MonoBehaviour
         }
         if (curHp <= 40 && PhaseCount == 3)
         {
+            phase34();
+        }
+        if (curHp <= 30 && PhaseCount == 4)
+        {
             phase4();
         }
-        if (curHp <= 20 && PhaseCount == 4)
+        if (curHp <= 20 && PhaseCount == 5)
         {
             phase5();
         }
@@ -92,19 +102,28 @@ public class Boss : MonoBehaviour
             phase6();
         }
 
-        if (PhaseCount == 4 && bossTeleport)
+        if (PhaseCount == 5 && bossTeleport)
         {
             bossTeleport = false;
             StartCoroutine("TelStart");
         }
-        if(PhaseCount == 5 && phase5Gp)
+        if(PhaseCount == 6 )
         {
+            phase6Time -= Time.deltaTime;
             bossTeleport = false;
-            phase5Gp = false;
-            StartCoroutine("Tel");
+            if(phase6Time <= 0)
+            {
+                phase6Time = 30f;
+                StartCoroutine("Wait10Sec");
+                StartCoroutine("Tel");
+                
+            }
+           
         }
        
     }
+
+
 
     private void phase2()
     {
@@ -115,6 +134,12 @@ public class Boss : MonoBehaviour
     private void phase3()
     {
         Debug.Log("경고");
+        PhaseCount += 1;
+    }
+
+    private void phase34()   //페이즈 34 는 count == 4
+    {
+        Debug.Log("흥분");
         PhaseCount += 1;
     }
 
@@ -129,7 +154,7 @@ public class Boss : MonoBehaviour
     private void phase5()
     {
         bossTeleport = false;
-        phase5Gp= true;
+        
         Debug.Log("광폭");
         PhaseCount += 1;
        
@@ -147,7 +172,7 @@ public class Boss : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         telNumber = Random.Range(1, 5 + 1);
-        if(PhaseCount == 4)
+        if(PhaseCount == 5)
         {
             if (telNumber == 1)
                 transform.position = pos1;
@@ -165,6 +190,11 @@ public class Boss : MonoBehaviour
         yield return null;
     }
 
+    IEnumerator Wait10Sec()
+    {
+        yield return new WaitForSeconds(10f);
+    }
+
     IEnumerator Tel()
     {
         Tp = Random.Range(1, 2 + 1);
@@ -178,14 +208,16 @@ public class Boss : MonoBehaviour
             tp2.transform.DOMoveX(12f, 1);
             yield return new WaitForSeconds(5f);
             tp2.transform.DOMoveX(32f, 1);
+            Instantiate(FiredBottle, new Vector2(8.75f, 3), Quaternion.identity);
         }
         if (Tp == 2)
         {
             tp1.transform.DOMoveX(-12f, 1);
             yield return new WaitForSeconds(5f);
             tp1.transform.DOMoveX(-32f, 1);
+            Instantiate(FiredBottle, new Vector2(-8.75f, 3), Quaternion.identity);
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(7.5f);
         if (Tp == 1)
         {
             transform.position = TpPos2;
@@ -193,6 +225,7 @@ public class Boss : MonoBehaviour
             tp1.transform.DOMoveX(-12f, 1);
             yield return new WaitForSeconds(5f);
             tp1.transform.DOMoveX(-32f, 1);
+            Instantiate(FiredBottle, new Vector2(-8.75f, 3), Quaternion.identity);
         }
         if (Tp == 2)
         {
@@ -201,7 +234,9 @@ public class Boss : MonoBehaviour
             tp2.transform.DOMoveX(12f, 1);
             yield return new WaitForSeconds(5f);
             tp2.transform.DOMoveX(32f, 1);
+            Instantiate(FiredBottle, new Vector2(8.75f, 3), Quaternion.identity);
         }
+        yield return new WaitForSeconds(7.5f);
 
     }
 

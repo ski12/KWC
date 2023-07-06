@@ -109,8 +109,16 @@ public class PlayerMove : MonoBehaviour
         Gizmos.DrawRay(transform.position + new Vector3(0, -0.8f, 0), transform.up * -1);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("FiredBottle"))
+        {
+            Destroy(collision.gameObject);
+        }
+    }
 
 
-    
-    
+
+
+
 }

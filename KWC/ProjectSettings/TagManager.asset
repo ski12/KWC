@@ -11,6 +11,8 @@ TagManager:
   - 'die_collider '
   - instant_death
   - phase5gp
+  - FiredBottle
+  - Gear
   layers:
   - Default
   - TransparentFX
