@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-   
+    
     public float jumpPower;
     public float speed = 10;
     private Rigidbody2D rb;
@@ -29,6 +29,7 @@ public class PlayerMove : MonoBehaviour
         defaultSpeed = speed;
         rb = GetComponent<Rigidbody2D>();
         isRun = false;
+        
     }
 
     private void FixedUpdate()
@@ -41,11 +42,12 @@ public class PlayerMove : MonoBehaviour
         rb.velocity = new Vector2(x * defaultSpeed, rb.velocity.y);
         if (Input.GetKey(KeyCode.D))
         {
-            Spr.flipX = false;
+            
+            Spr.flipX = true;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            Spr.flipX = true;
+            Spr.flipX = false;
         }
         if (rb.velocity.x != 0)
         {
@@ -59,20 +61,35 @@ public class PlayerMove : MonoBehaviour
     
     void Update()
     {
+        
+        if(isGround == false)
+        {
+            anim.SetBool("IsRun", false);
+        }
         if(Input.GetKeyDown(KeyCode.Space) && isGround)
         {
-            isGround= false;
+            
+            isGround = false;
             rb.velocity = Vector2.up * jumpPower;
-          
-
+            
         }
+        if(isGround == false)
+        {
+            anim.SetBool("IsJump", true);
+        }
+        if(isGround == true)
+        {
+            anim.SetBool("IsJump", false);
+        }
+        
         if(Input.GetKeyDown(KeyCode.P) && defaultSpeed != 0 && !isDash)
         {
+            
             defaultSpeed = dashSpeed;
             isDash = true;
             StartCoroutine(DashEnd());
         }
-        if(Input.GetKeyDown(KeyCode.F))
+        if(Input.GetKeyDown(KeyCode.S))
         {
             
             defaultSpeed = 0;
@@ -85,6 +102,8 @@ public class PlayerMove : MonoBehaviour
         {
             defaultSpeed = speed;
             isGround = true;
+           
+           
         }
         else
         {
@@ -117,7 +136,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-
+   
 
 
 
