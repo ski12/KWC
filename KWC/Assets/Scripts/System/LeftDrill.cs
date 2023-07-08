@@ -27,7 +27,7 @@ public class LeftDrill : MonoBehaviour
         if (isCool && Boss.PhaseCount != 7)
         {
             coolTime -= Time.deltaTime;
-            if (Boss.PhaseCount == 4)
+            if (Boss.PhaseCount >= 3)
             {
                 DrillCool = 3;
                 DangerCoolTime = 1f;
@@ -45,15 +45,15 @@ public class LeftDrill : MonoBehaviour
 
     IEnumerator Move()
     {
-        Triangle.transform.position = new Vector2(-29.5f, Random.Range(-16, 1.5f));
-        Danger.transform.position = new Vector2(-21.5f, Triangle.transform.position.y);
+        Triangle.transform.position = new Vector2(-35f, Random.Range(-16, 1.5f));
+        Danger.transform.position = new Vector2(-22f, Triangle.transform.position.y);
 
 
         yield return new WaitForSeconds(DangerCoolTime);
-        Danger.transform.position = new Vector2(-29.5f, Triangle.transform.position.y);
-        Triangle.transform.DOMoveX(-19.5f, 2);
+        Danger.transform.position = new Vector2(-37f, Triangle.transform.position.y);
+        Triangle.transform.DOMoveX(-18f, 2);
         yield return new WaitForSeconds(3f);
-        Triangle.transform.DOMoveX(-29.5f, 2);
+        Triangle.transform.DOMoveX(-35f, 2);
 
         isCool = true;
         yield return null;

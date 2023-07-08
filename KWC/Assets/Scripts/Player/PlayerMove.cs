@@ -16,11 +16,18 @@ public class PlayerMove : MonoBehaviour
     public float dashTime;
     private float x;
     private Animator anim;
+    public RaycastHit hit;
+    public Rigidbody2D Enrb;
 
     SpriteRenderer Spr;
+    public Vector2 boxSize;
+    public Transform pos;
+    public Vector2 RboxSize;
+    public Transform Rpos;
 
     [SerializeField]
     private LayerMask GroundCheck;
+    public LayerMask FallingBlock;
 
     void Start()
     {
@@ -29,6 +36,7 @@ public class PlayerMove : MonoBehaviour
         defaultSpeed = speed;
         rb = GetComponent<Rigidbody2D>();
         isRun = false;
+   
         
     }
 
@@ -102,13 +110,12 @@ public class PlayerMove : MonoBehaviour
         {
             defaultSpeed = speed;
             isGround = true;
-           
-           
         }
         else
         {
             isGround= false;
         }
+        
 
     }
 
@@ -126,6 +133,8 @@ public class PlayerMove : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position + new Vector3(0, -0.8f, 0), transform.up * -1);
+        Gizmos.DrawWireCube(pos.position, boxSize);
+        Gizmos.DrawWireCube(Rpos.position, RboxSize);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -134,6 +143,40 @@ public class PlayerMove : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
+    }
+
+    public void PlayerAttack()
+    {
+       if(Spr.flipX == false)
+        {
+            Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
+            foreach (Collider2D collider in collider2Ds)
+            {
+                if (collider.tag == "Block")
+                {
+                    //Destroy(collider.gameObject);
+                    collider.transform.GetComponent<DotweenBlock>().Left();
+           
+                }
+            }
+        }
+        if (Spr.flipX == true)
+        {
+            Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(Rpos.position, RboxSize, 0);
+            foreach (Collider2D collider in collider2Ds)
+            {
+                if (collider.tag == "Block")
+                {
+                  
+                    collider.transform.GetComponent<DotweenBlock>().Right();
+                }
+            }
+        }
+
+
+
+
+
     }
 
    

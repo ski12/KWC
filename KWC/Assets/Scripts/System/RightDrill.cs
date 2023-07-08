@@ -28,10 +28,11 @@ public class RightDrill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (isCool && Boss.PhaseCount != 7)
         {
             coolTime -= Time.deltaTime;
-            if (Boss.PhaseCount == 4)
+            if (Boss.PhaseCount >= 3)
             {
                 DrillCool = 3;
                 DangerCoolTime = 1f;
@@ -59,15 +60,15 @@ public class RightDrill : MonoBehaviour
 
     IEnumerator Move()
     {
-        Triangle.transform.position = new Vector2(29.5f, Random.Range(-16, 1.5f));
-        Danger.transform.position = new Vector2(21.5f, Triangle.transform.position.y);
+        Triangle.transform.position = new Vector2(34f, Random.Range(-16, 1.5f));
+        Danger.transform.position = new Vector2(20f, Triangle.transform.position.y);
 
 
         yield return new WaitForSeconds(DangerCoolTime);
-        Danger.transform.position = new Vector2(29.5f, Triangle.transform.position.y);
-        Triangle.transform.DOMoveX(19.5f, 2);
+        Danger.transform.position = new Vector2(36f, Triangle.transform.position.y);
+        Triangle.transform.DOMoveX(18.5f, 2);
         yield return new WaitForSeconds(3f);
-        Triangle.transform.DOMoveX(29.5f, 2);
+        Triangle.transform.DOMoveX(34f, 2);
 
         isCool = true;
         yield return null;

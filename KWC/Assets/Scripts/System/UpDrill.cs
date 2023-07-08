@@ -24,7 +24,7 @@ public class UpDrill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Boss.PhaseCount == 3)
+        if (Boss.PhaseCount >= 3)
         {
             if (isCool && Boss.PhaseCount != 7)
             {
@@ -49,14 +49,14 @@ public class UpDrill : MonoBehaviour
 
     IEnumerator Move()
     {
-        Triangle.transform.position = new Vector2(Random.Range(-21.5f, 21.5f), 9);
+        Triangle.transform.position = new Vector2(Random.Range(-15f, 15f), 18);
 
-        Danger.transform.position = new Vector2(Triangle.transform.position.x, 1f);
+        Danger.transform.position = new Vector2(Triangle.transform.position.x, 10f);
         yield return new WaitForSeconds(DangerCoolTime);
-        Danger.transform.position = new Vector2(Triangle.transform.position.x, 9);
-        Triangle.transform.DOMoveY(0f, 2);
+        Danger.transform.position = new Vector2(Triangle.transform.position.x, 20f);
+        Triangle.transform.DOMoveY(7.3f, 2);
         yield return new WaitForSeconds(3f);
-        Triangle.transform.DOMoveY(9f, 2);
+        Triangle.transform.DOMoveY(18f, 2);
 
         isCool = true;
         yield return null;

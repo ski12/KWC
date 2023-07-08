@@ -23,10 +23,10 @@ public class GearMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UpGearSpawn1 = new Vector2(-13.5f, 3.5f); //왼쪽
+        UpGearSpawn1 = new Vector2(-20f, 3.4f); //왼쪽
         UpGearSpawn2 = new Vector2(13.5f, 3.5f);  // 오른쪽
         DownGearSpawn1 = new Vector2(-13.5f, -18f);
-        DownGearSpawn2 = new Vector2(13.5f, -18f);
+        DownGearSpawn2 = new Vector2(19.66f, -18f);
     }
 
     // Update is called once per frame
@@ -60,7 +60,7 @@ public class GearMove : MonoBehaviour
         {
             UpGear.transform.position = UpGearSpawn1;
             
-            UpGear.transform.DOMoveX(18, 5f);
+            UpGear.transform.DOMoveX(24, 5f);
             
         }
         if (GearPositionNum == 2)
@@ -68,7 +68,7 @@ public class GearMove : MonoBehaviour
             
             DownGear.transform.position = DownGearSpawn2;
             
-            DownGear.transform.DOMoveX(-18, 5f);
+            DownGear.transform.DOMoveX(-24, 6f);
         }
         yield return null;
     }

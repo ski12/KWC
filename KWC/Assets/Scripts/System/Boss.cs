@@ -21,7 +21,7 @@ public class Boss : MonoBehaviour
     private GameObject tp2;
 
     [SerializeField]
-    private float maxHp;
+    private float maxHp = 300;
 
     
     public static float curHp;
@@ -56,7 +56,7 @@ public class Boss : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Midpos3 = new Vector2(0, 0.74f);
+        Midpos3 = new Vector2(0.03f, -6f);
         pos1 = new Vector2(-10, 2.54f);
         pos2 = new Vector2(10, 2.54f);
         pos4 = new Vector2(-10, -2.54f);
@@ -78,27 +78,27 @@ public class Boss : MonoBehaviour
             curHp -= 5;
         }
 
-        if (curHp <= 80 && PhaseCount == 1)
+        if (curHp <= 300 && PhaseCount == 1) //몰입 카운트 = 2
         {
             phase2();
         }
-        if (curHp <= 60 && PhaseCount == 2)
+        if (curHp <= 250 && PhaseCount == 2)  // 경고 카운트 = 3
         {
             phase3();
         }
-        if (curHp <= 40 && PhaseCount == 3)
+        if (curHp <= 200 && PhaseCount == 3) //흥분 카운트 = 4
         {
             phase34();
         }
-        if (curHp <= 30 && PhaseCount == 4)
+        if (curHp <= 150 && PhaseCount == 4) // 폭주 카운트 5
         {
             phase4();
         }
-        if (curHp <= 20 && PhaseCount == 5)
+        if (curHp <= 100 && PhaseCount == 5) //광폭 카운트  = 6
         {
             phase5();
         }
-        if (curHp <= 10 && PhaseCount == 6)
+        if (curHp <= 50 && PhaseCount == 6) // 제거 카운트 = 7
         {
             phase6();
         }
@@ -166,6 +166,7 @@ public class Boss : MonoBehaviour
         transform.position = Midpos3;
         Debug.Log("제거");
         Gimic.GetComponent<Phase5Gimic>().Destro();
+        transform.position = Midpos3;
         PhaseCount += 1;
     }
 
@@ -204,14 +205,14 @@ public class Boss : MonoBehaviour
         if (Tp == 2)
             transform.position = TpPos2;
         yield return new WaitForSeconds(1.5f);
-        if(Tp == 1)
+        if(Tp == 1 && PhaseCount == 6)
         {
             tp2.transform.DOMoveX(12f, 1);
             yield return new WaitForSeconds(5f);
             tp2.transform.DOMoveX(32f, 1);
             Instantiate(FiredBottle, new Vector2(8.75f, 3), Quaternion.identity);
         }
-        if (Tp == 2)
+        if (Tp == 2 && PhaseCount == 6)
         {
             tp1.transform.DOMoveX(-12f, 1);
             yield return new WaitForSeconds(5f);
@@ -219,7 +220,7 @@ public class Boss : MonoBehaviour
             Instantiate(FiredBottle, new Vector2(-8.75f, 3), Quaternion.identity);
         }
         yield return new WaitForSeconds(7.5f);
-        if (Tp == 1)
+        if (Tp == 1 && PhaseCount == 6)
         {
             transform.position = TpPos2;
             yield return new WaitForSeconds(1.5f);
@@ -228,7 +229,7 @@ public class Boss : MonoBehaviour
             tp1.transform.DOMoveX(-32f, 1);
             Instantiate(FiredBottle, new Vector2(-8.75f, 3), Quaternion.identity);
         }
-        if (Tp == 2)
+        if (Tp == 2 && PhaseCount == 6)
         {
             transform.position = TpPos1;
             yield return new WaitForSeconds(1.5f);
