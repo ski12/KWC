@@ -2,24 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class Hp5 : MonoBehaviour
+public class EndTimer : MonoBehaviour
 {
-    Image Php5;
-    public Sprite Dead;
+    public Text timerText;
+    private float time;
     // Start is called before the first frame update
     void Start()
     {
-        Php5 = GetComponent<Image>();
+        time = SaveTimer.instance.LoadTime();
+        timerText.text = "플레이 타임 : " + time;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PlayerMove.playerCurhp <= 4)
-        {
-            Php5.sprite = Dead;
-        }
         
     }
 }

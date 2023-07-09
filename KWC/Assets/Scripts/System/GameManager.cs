@@ -2,44 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
-    public GameObject blockPrefab;
-    private float DestroyTime = 40f;
-    public GameObject Doubleblock;
-
+    public Boss boss;
+    private float BossHp;
+    public Text text;
     private void Start()
     {
-        StartCoroutine(CraeteBlockRoop());
-        Doubleblock.SetActive(false);
+        
+        DontDestroyOnLoad(gameObject);
     }
-
-
-    private void Update()
+    public void GameEnd()
     {
-        if(Boss.PhaseCount >= 3)
+
+        BossHp = Boss.curHp;
+        SceneManager.LoadScene("End");
+        
+        Invoke("EndScene", 0.1f);
+       
+    }
+    private void EndScene()
+    {
+        
+        text = GameObject.FindWithTag("ClearText").GetComponent<Text>();
+        if(BossHp <= 0)
         {
-            Doubleblock.SetActive(true);
+            text.text = "Clear!";
         }
-    }
-    
-    IEnumerator CraeteBlockRoop()
-    {
-        while (true)
+        else
         {
-            CraeteBlock();
-            yield return new WaitForSeconds(1);
+            text.text = ("º¸½ºHP : " + BossHp);
         }
-
-    }
-    
-
-    private void CraeteBlock()
-    {
-        Vector3 blockPosition = Camera.main.ViewportToWorldPoint(new Vector3(UnityEngine.Random.Range(0.0f, 1.0f), 1.1f, 0));
-        blockPosition.z = 0.0f;
-        GameObject block =  Instantiate(blockPrefab, blockPosition, Quaternion.identity);
-        Destroy(block, DestroyTime);
+      
+        
     }
 }

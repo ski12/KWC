@@ -16,6 +16,14 @@ public class Buttons : MonoBehaviour
     {
         
     }
+    public void GameExit()
+    {
+        SceneManager.LoadScene("Start");
+    }
+    public void GameReStart()
+    {
+        SceneManager.LoadScene("ChapterSelect");
+    }
 
     public void GameStart()
     {

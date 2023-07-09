@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-
+using UnityEngine.SceneManagement;
 public class Boss : MonoBehaviour
 {
     [SerializeField]
     private Slider hpbar;
+    private GameManager Gm;
 
 
     public GameObject FiredBottle;
@@ -21,7 +22,7 @@ public class Boss : MonoBehaviour
     private GameObject tp2;
 
     [SerializeField]
-    private float maxHp = 300;
+    private float maxHp = 1;
 
     
     public static float curHp;
@@ -56,6 +57,7 @@ public class Boss : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Gm = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         Midpos3 = new Vector2(0.03f, -6f);
         pos1 = new Vector2(14.7f, -1.2f);
         pos2 = new Vector2(-14.7f, -1.2f);
@@ -73,7 +75,7 @@ public class Boss : MonoBehaviour
     {
         if(curHp <= 0)
         {
-            Destroy(gameObject);
+            Gm.GameEnd();
         }
         
         hpbar.value = Mathf.Lerp(hpbar.value, curHp / maxHp, Time.deltaTime * 10);
@@ -121,6 +123,7 @@ public class Boss : MonoBehaviour
             }
            
         }
+        
        
     }
 
@@ -246,6 +249,7 @@ public class Boss : MonoBehaviour
     {
         if (collision.CompareTag("Fired"))
         {
+            Debug.Log("ddd");
             curHp -= 10;
             Destroy(collision.gameObject);
         }
