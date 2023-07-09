@@ -31,7 +31,7 @@ public class hurtPosition : MonoBehaviour
         }
         if(collision.gameObject.name == "die")
         {
-            Destroy(gameObject);
+            PlayerMove.playerCurhp = 0;
         }
     }
 

@@ -14,12 +14,12 @@ public class PlayerCo : MonoBehaviour
 
     private void Update()
     {
-        // ÇÃ·¹ÀÌ¾î°¡ ¿À¸¥ÂÊÀ» º¸´Â °æ¿ì
+        // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         if (spriteRenderer.flipX == true)
         {
             playerHand.localPosition = new Vector3(1f, 0f, 0f);
         }
-        // ÇÃ·¹ÀÌ¾î°¡ ¿ÞÂÊÀ» º¸´Â °æ¿ì
+        // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         else
         {
             playerHand.localPosition = new Vector3(-1f, 0f, 0f);

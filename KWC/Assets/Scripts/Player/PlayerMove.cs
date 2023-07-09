@@ -71,7 +71,10 @@ public class PlayerMove : MonoBehaviour
     
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Boss.curHp -= 5;
+        }
         if(isGround == false)
         {
             anim.SetBool("IsRun", false);
@@ -171,6 +174,14 @@ public class PlayerMove : MonoBehaviour
                     collider.transform.GetComponent<DotweenBlock>().Left();
            
                 }
+                if (Boss.PhaseCount == 7)
+                {
+                    if (collider.tag == "Boss")
+                    {
+                        Boss.curHp -= 2f;
+
+                    }
+                }
             }
         }
         if (Spr.flipX == true)
@@ -183,6 +194,15 @@ public class PlayerMove : MonoBehaviour
                   
                     collider.transform.GetComponent<DotweenBlock>().Right();
                 }
+                if(Boss.PhaseCount == 7)
+                {
+                    if (collider.tag == "Boss")
+                    {
+                        Boss.curHp -= 2f;
+
+                    }
+                }
+               
             }
         }
 

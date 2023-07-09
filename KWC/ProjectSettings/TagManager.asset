@@ -18,6 +18,8 @@ TagManager:
   - Boss
   - ErrCode
   - Item
+  - VacinCode
+  - Fired
   layers:
   - Default
   - TransparentFX

@@ -71,13 +71,13 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(curHp <= 0)
+        {
+            Destroy(gameObject);
+        }
         
         hpbar.value = Mathf.Lerp(hpbar.value, curHp / maxHp, Time.deltaTime * 10);
-        if (Input.GetKeyUp(KeyCode.K))
-        {
-            curHp -= 5;
-        }
-
+       
         if (curHp <= 300 && PhaseCount == 1) //몰입 카운트 = 2
         {
             phase2();
@@ -209,15 +209,15 @@ public class Boss : MonoBehaviour
         {
             tp2.transform.DOMoveX(12f, 1);
             yield return new WaitForSeconds(5f);
-            tp2.transform.DOMoveX(32f, 1);
-            Instantiate(FiredBottle, new Vector2(8.75f, 3), Quaternion.identity);
+            tp2.transform.DOMoveX(36.6f, 1);
+            Instantiate(FiredBottle, new Vector2(0f, 5), Quaternion.identity);
         }
         if (Tp == 2 && PhaseCount == 6)
         {
             tp1.transform.DOMoveX(-12f, 1);
             yield return new WaitForSeconds(5f);
-            tp1.transform.DOMoveX(-32f, 1);
-            Instantiate(FiredBottle, new Vector2(-8.75f, 3), Quaternion.identity);
+            tp1.transform.DOMoveX(-36.6f, 1);
+            Instantiate(FiredBottle, new Vector2(0f, 5), Quaternion.identity);
         }
         yield return new WaitForSeconds(7.5f);
         if (Tp == 1 && PhaseCount == 6)
@@ -226,8 +226,8 @@ public class Boss : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             tp1.transform.DOMoveX(-12f, 1);
             yield return new WaitForSeconds(5f);
-            tp1.transform.DOMoveX(-32f, 1);
-            Instantiate(FiredBottle, new Vector2(-8.75f, 3), Quaternion.identity);
+            tp1.transform.DOMoveX(-36.6f, 1);
+            Instantiate(FiredBottle, new Vector2(0f, 5), Quaternion.identity);
         }
         if (Tp == 2 && PhaseCount == 6)
         {
@@ -235,14 +235,21 @@ public class Boss : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             tp2.transform.DOMoveX(12f, 1);
             yield return new WaitForSeconds(5f);
-            tp2.transform.DOMoveX(32f, 1);
-            Instantiate(FiredBottle, new Vector2(8.75f, 3), Quaternion.identity);
+            tp2.transform.DOMoveX(36.6f, 1);
+            Instantiate(FiredBottle, new Vector2(0f, 5), Quaternion.identity);
         }
         yield return new WaitForSeconds(7.5f);
 
     }
 
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Fired"))
+        {
+            curHp -= 10;
+            Destroy(collision.gameObject);
+        }
+    }
 
 
 }

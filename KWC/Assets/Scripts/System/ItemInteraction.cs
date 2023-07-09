@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ItemInteraction : MonoBehaviour
 {
-    public float throwForce = 10f; // ¾ÆÀÌÅÛÀ» ´øÁú ÈûÀÇ Å©±â
-    public float throwAngle = 45f; // ¾ÆÀÌÅÛÀ» ´øÁú °¢µµ
+    public float throwForce = 10f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½
+    public float throwAngle = 45f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     private bool isHeld = false;
     private Transform playerHand;
@@ -15,7 +15,7 @@ public class ItemInteraction : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //rb.gravityScale = 0f; // Áß·Â ºñÈ°¼ºÈ­
+        //rb.gravityScale = 0f; // ï¿½ß·ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         
         playerHand = GameObject.Find("PlayerHand").transform;
         PlayerSr = playerHand.parent.GetComponent<SpriteRenderer>();

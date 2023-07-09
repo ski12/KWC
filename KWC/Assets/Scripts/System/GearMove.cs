@@ -15,6 +15,10 @@ public class GearMove : MonoBehaviour
 
     [SerializeField]
     private int GearPositionNum;
+    [SerializeField]
+    private bool position1 = false;
+    
+
 
     private Vector2 UpGearSpawn1;
     private Vector2 UpGearSpawn2;
@@ -44,23 +48,41 @@ public class GearMove : MonoBehaviour
       
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("ErrCode") && Boss.PhaseCount == 4)
+        {
+            Destroy(collision.gameObject);
+            if (position1)
+            {
+                transform.position = new Vector2(14.6f, -0.4f);
+            }
+            if (!position1)
+            {
+                transform.position = new Vector2(-14.6f, -12.2f);
+            }
+        }
+    }
+
     IEnumerator GearGimicStart()
     {
         GearPositionNum = Random.Range(1, 2 + 1);
         if(GearPositionNum == 1)
         {
-            transform.position = new Vector2(-9.4f, -14f);
+            transform.position = new Vector2(-14.6f, -12.2f);
+            position1 = true;
         }
         else
         {
-            transform.position = new Vector2(9.7f, -1f);
+            transform.position = new Vector2(14.6f, 0.4f);
+            position1= false;
         }
         yield return new WaitForSeconds(3f);
         if(GearPositionNum == 1)
         {
             UpGear.transform.position = UpGearSpawn1;
             
-            UpGear.transform.DOMoveX(24, 5f);
+            UpGear.transform.DOMoveX(26, 5f);
             
         }
         if (GearPositionNum == 2)
@@ -68,7 +90,7 @@ public class GearMove : MonoBehaviour
             
             DownGear.transform.position = DownGearSpawn2;
             
-            DownGear.transform.DOMoveX(-24, 6f);
+            DownGear.transform.DOMoveX(-26, 6f);
         }
         yield return null;
     }

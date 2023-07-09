@@ -32,11 +32,15 @@ public class DotweenBlock : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (collision.tag == "Boss" && Attackboss )
+        if(Boss.PhaseCount !=4 || Boss.PhaseCount != 5 || Boss.PhaseCount != 6)
         {
-            Destroy(gameObject);
-            Boss.curHp -= 10;
+            if (collision.tag == "Boss" && Attackboss)
+            {
+                Destroy(gameObject);
+                Boss.curHp -= 10;
+            }
         }
+       
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

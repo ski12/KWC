@@ -1,11 +1,11 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
-public class DrillWire : MonoBehaviour
+public class DrillWireRight : MonoBehaviour
 {
- 
+  
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,8 +13,9 @@ public class DrillWire : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Boss.curHp -= 20;
-            transform.DOMoveX(-15.4f, 3);
+            transform.DOMoveX(15.4f, 3);
             Destroy(gameObject);
         }
     }
 }
+
