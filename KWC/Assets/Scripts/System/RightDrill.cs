@@ -14,6 +14,8 @@ public class RightDrill : MonoBehaviour
     public float DangerCool = 5f;
     public float DangerCoolTime;
     [SerializeField]
+    private float FirstCool;
+    [SerializeField]
     private bool isCool;
     // Start is called before the first frame update
     void Start()
@@ -28,34 +30,37 @@ public class RightDrill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (isCool && Boss.PhaseCount != 7)
+        FirstCool -= Time.deltaTime;
+        if(FirstCool <= 0)
         {
-            coolTime -= Time.deltaTime;
-            if (Boss.PhaseCount >= 3)
+            if (isCool && Boss.PhaseCount != 7 && Boss.PhaseCount != 4 && Boss.PhaseCount != 6)
             {
-                DrillCool = 3;
-                DangerCoolTime = 1f;
+                coolTime -= Time.deltaTime;
+                if (Boss.PhaseCount >= 3)
+                {
+                    DrillCool = 3;
+                    DangerCoolTime = 1f;
+                }
+                if (coolTime <= 0)
+                {
+                    StartCoroutine("Move");
+                    isCool = false;
+                    coolTime = DrillCool;
+                }
             }
-            if (coolTime <= 0)
+
+            if (Boss.PhaseCount == 5)
             {
-                StartCoroutine("Move");
-                isCool = false;
-                coolTime = DrillCool;
+                UpWire.SetActive(true);
+                DownWire.SetActive(true);
+            }
+            else
+            {
+                UpWire.SetActive(false);
+                DownWire.SetActive(false);
             }
         }
-
-        if(Boss.PhaseCount == 5)
-        {
-            UpWire.SetActive(true);
-            DownWire.SetActive(true);
-        }
-        else
-        {
-            UpWire.SetActive(false);
-            DownWire.SetActive(false);
-        }
-
+        
     }
 
     IEnumerator Move()

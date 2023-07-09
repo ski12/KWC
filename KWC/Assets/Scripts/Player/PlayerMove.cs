@@ -18,6 +18,8 @@ public class PlayerMove : MonoBehaviour
     private Animator anim;
     public RaycastHit hit;
     public Rigidbody2D Enrb;
+    public float playerMaxhp;
+    public static float playerCurhp;
 
     SpriteRenderer Spr;
     public Vector2 boxSize;
@@ -27,7 +29,7 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField]
     private LayerMask GroundCheck;
-    public LayerMask FallingBlock;
+
 
     void Start()
     {
@@ -36,7 +38,7 @@ public class PlayerMove : MonoBehaviour
         defaultSpeed = speed;
         rb = GetComponent<Rigidbody2D>();
         isRun = false;
-   
+        playerCurhp = playerMaxhp;
         
     }
 
@@ -111,6 +113,16 @@ public class PlayerMove : MonoBehaviour
             defaultSpeed = speed;
             isGround = true;
         }
+        else if(Physics2D.Raycast(transform.position + new Vector3(0.4f, -0.8f, 0), transform.up, -1, GroundCheck))
+        {
+            defaultSpeed = speed;
+            isGround = true;
+        }
+        else if(Physics2D.Raycast(transform.position + new Vector3(-0.4f, -0.8f, 0), transform.up, -1, GroundCheck))
+        {
+            defaultSpeed = speed;
+            isGround = true;
+        }
         else
         {
             isGround= false;
@@ -128,11 +140,12 @@ public class PlayerMove : MonoBehaviour
 
     
 
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position + new Vector3(0, -0.8f, 0), transform.up * -1);
+        Gizmos.DrawRay(transform.position + new Vector3(0.4f, -0.8f, 0), transform.up * -1);
+        Gizmos.DrawRay(transform.position + new Vector3(-0.4f, -0.8f, 0), transform.up * -1);
         Gizmos.DrawWireCube(pos.position, boxSize);
         Gizmos.DrawWireCube(Rpos.position, RboxSize);
     }

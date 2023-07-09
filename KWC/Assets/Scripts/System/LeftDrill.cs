@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class LeftDrill : MonoBehaviour
 {
+    public GameObject UpWire;
+    public GameObject DownWire;
     public GameObject Triangle;
     public GameObject Danger;
     public float DrillCool = 7f;
@@ -16,6 +18,8 @@ public class LeftDrill : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UpWire.SetActive(false);
+        DownWire.SetActive(false);
         isCool = true;
         coolTime = DrillCool;
         DangerCoolTime = DangerCool;
@@ -24,7 +28,7 @@ public class LeftDrill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isCool && Boss.PhaseCount != 7)
+        if (isCool && Boss.PhaseCount != 7 && Boss.PhaseCount != 4 && Boss.PhaseCount != 6)
         {
             coolTime -= Time.deltaTime;
             if (Boss.PhaseCount >= 3)
@@ -39,7 +43,16 @@ public class LeftDrill : MonoBehaviour
                 coolTime = DrillCool;
             }
         }
-
+        if (Boss.PhaseCount == 5)
+        {
+            UpWire.SetActive(true);
+            DownWire.SetActive(true);
+        }
+        else
+        {
+            UpWire.SetActive(false);
+            DownWire.SetActive(false);
+        }
 
     }
 

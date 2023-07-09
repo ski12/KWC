@@ -47,6 +47,10 @@ public class DotweenBlock : MonoBehaviour
             speed = speed / 10;
             EnemyRb.mass = 2000;
         }
+        if (collision.collider.CompareTag("Drill"))
+        {
+            Destroy(gameObject);
+        }
 
     }
 

@@ -26,10 +26,10 @@ public class UpDrill : MonoBehaviour
     {
         if (Boss.PhaseCount >= 3)
         {
-            if (isCool && Boss.PhaseCount != 7)
+            if (isCool && Boss.PhaseCount != 7 && Boss.PhaseCount !=4 && Boss.PhaseCount  != 6)
             {
                 coolTime -= Time.deltaTime;
-                if (Boss.PhaseCount == 4)
+                if (Boss.PhaseCount >= 3)
                 {
                     DrillCool = 3;
                     DangerCoolTime = 1f;

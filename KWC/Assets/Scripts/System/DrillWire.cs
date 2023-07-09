@@ -8,9 +8,10 @@ public class DrillWire : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("ErrCode"))
         {
-            Boss.curHp -= 5;
+            Destroy(collision.gameObject);
+            Boss.curHp -= 10;
         }
     }
 }

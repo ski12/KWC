@@ -6,7 +6,7 @@ using DG.Tweening;
 public class GameManager : MonoBehaviour
 {
     public GameObject blockPrefab;
-    private float DestroyTime = 15f;
+    private float DestroyTime = 40f;
     public GameObject Doubleblock;
 
     private void Start()

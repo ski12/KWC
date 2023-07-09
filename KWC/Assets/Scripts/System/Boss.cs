@@ -57,10 +57,10 @@ public class Boss : MonoBehaviour
     void Start()
     {
         Midpos3 = new Vector2(0.03f, -6f);
-        pos1 = new Vector2(-10, 2.54f);
-        pos2 = new Vector2(10, 2.54f);
-        pos4 = new Vector2(-10, -2.54f);
-        pos5 = new Vector2(10, -2.54f);
+        pos1 = new Vector2(14.7f, -1.2f);
+        pos2 = new Vector2(-14.7f, -1.2f);
+        pos4 = new Vector2(-14.7f, -13f);
+        pos5 = new Vector2(14.7f, -13f);
         TpPos1 = new Vector2(-8.67f, -7.3f);
         TpPos2 = new Vector2(8.67f, -7.3f);
         Gimic = GameObject.Find("EventSystem");
@@ -71,7 +71,7 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hpbar.transform.position = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + height, 0));
+        
         hpbar.value = Mathf.Lerp(hpbar.value, curHp / maxHp, Time.deltaTime * 10);
         if (Input.GetKeyUp(KeyCode.K))
         {
