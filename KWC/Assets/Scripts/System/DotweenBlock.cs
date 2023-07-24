@@ -37,7 +37,7 @@ public class DotweenBlock : MonoBehaviour
             if (collision.tag == "Boss" && Attackboss)
             {
                 Destroy(gameObject);
-                Boss.curHp -= 10;
+                Boss.curHp -= 15;
             }
         }
        

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RightDrill : MonoBehaviour
 {
+    Rigidbody2D rb;
     public GameObject UpWire;
     public GameObject DownWire;
     public GameObject Triangle;
@@ -77,5 +78,14 @@ public class RightDrill : MonoBehaviour
 
         isCool = true;
         yield return null;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            Vector2 force = transform.right * -5;
+            //rb.AddForce(force, ForceMode.Impulse);
+        }
     }
 }

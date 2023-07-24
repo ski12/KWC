@@ -18,18 +18,29 @@ public class hurtPosition : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Block")&& !PlayerMove.IsInv)
+        {
+            PlayerMove.playerCurhp -= 1;
+            PlayerMove.IsInv = true;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(Physics2D.Raycast(transform.position + new Vector3(0, 1f, 0), transform.up, 1, drillMask))
+        if(collision.gameObject.tag == "Drill" && !PlayerMove.IsInv)
         {
             PlayerMove.playerCurhp -= 1;
+            PlayerMove.IsInv = true;
         }
-        if (Physics2D.Raycast(transform.position + new Vector3(0, 1f, 0), transform.up, 1, FallingMask))
+        if (Physics2D.Raycast(transform.position + new Vector3(0, 1f, 0), transform.up, 1, FallingMask) && !PlayerMove.IsInv)
         {
             PlayerMove.playerCurhp -= 1;
+            PlayerMove.IsInv = true;
             Destroy(collision.gameObject);
         }
-        if(collision.gameObject.name == "die")
+        if(collision.collider.CompareTag("die"))
         {
             PlayerMove.playerCurhp = 0;
         }

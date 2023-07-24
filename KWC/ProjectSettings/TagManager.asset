@@ -22,6 +22,7 @@ TagManager:
   - Fired
   - ClearText
   - GameManager
+  - Destroyer
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - fallingblock
   - Slowflat
   - NonSlowflat
-  - 
+  - Postprocessing
   - 
   - 
   - 

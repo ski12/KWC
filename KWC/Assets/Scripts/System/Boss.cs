@@ -10,6 +10,9 @@ public class Boss : MonoBehaviour
     private Slider hpbar;
     private GameManager Gm;
 
+    [SerializeField]
+    private GameObject Effect;
+
 
     public GameObject FiredBottle;
 
@@ -52,6 +55,7 @@ public class Boss : MonoBehaviour
     {
         bossTeleport = false;
         curHp = maxHp;
+        PhaseCount = 1;
       
     }
     // Start is called before the first frame update
@@ -166,6 +170,7 @@ public class Boss : MonoBehaviour
 
     private void phase6()
     {
+        Instantiate(Effect, transform.position, Quaternion.identity);
         transform.position = Midpos3;
         Debug.Log("제거");
         Gimic.GetComponent<Phase5Gimic>().Destro();
@@ -180,15 +185,40 @@ public class Boss : MonoBehaviour
         if(PhaseCount == 5)
         {
             if (telNumber == 1)
+            {
+                Instantiate(Effect, transform.position, Quaternion.identity);
                 transform.position = pos1;
+              
+            }
+               
             if (telNumber == 2)
+            {
+                Instantiate(Effect, transform.position, Quaternion.identity);
                 transform.position = pos2;
+              
+            }
+                
             if (telNumber == 3)
+            {
+                Instantiate(Effect, transform.position, Quaternion.identity);
                 transform.position = Midpos3;
+               
+            }
+                
             if (telNumber == 4)
+            {
+                Instantiate(Effect, transform.position, Quaternion.identity);
                 transform.position = pos4;
+                
+            }
+                
             if (telNumber == 5)
+            {
+                Instantiate(Effect, transform.position, Quaternion.identity);
                 transform.position = pos5;
+                
+            }
+                
             bossTeleport = true;
         }
        
@@ -204,9 +234,17 @@ public class Boss : MonoBehaviour
     {
         Tp = Random.Range(1, 2 + 1);
         if (Tp == 1)
+        {
+            Instantiate(Effect, transform.position, Quaternion.identity);
             transform.position = TpPos1;
+        }
+            
         if (Tp == 2)
+        {
+            Instantiate(Effect, transform.position, Quaternion.identity);
             transform.position = TpPos2;
+        }
+           
         yield return new WaitForSeconds(1.5f);
         if(Tp == 1 && PhaseCount == 6)
         {
@@ -225,6 +263,7 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(7.5f);
         if (Tp == 1 && PhaseCount == 6)
         {
+            Instantiate(Effect, transform.position, Quaternion.identity);
             transform.position = TpPos2;
             yield return new WaitForSeconds(1.5f);
             tp1.transform.DOMoveX(-12f, 1);
@@ -234,6 +273,7 @@ public class Boss : MonoBehaviour
         }
         if (Tp == 2 && PhaseCount == 6)
         {
+            Instantiate(Effect, transform.position, Quaternion.identity);
             transform.position = TpPos1;
             yield return new WaitForSeconds(1.5f);
             tp2.transform.DOMoveX(12f, 1);
@@ -250,7 +290,7 @@ public class Boss : MonoBehaviour
         if (collision.CompareTag("Fired"))
         {
             Debug.Log("ddd");
-            curHp -= 10;
+            curHp -= 15;
             Destroy(collision.gameObject);
         }
     }

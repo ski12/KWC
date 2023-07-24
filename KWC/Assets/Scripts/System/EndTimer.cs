@@ -10,7 +10,7 @@ public class EndTimer : MonoBehaviour
     void Start()
     {
         time = SaveTimer.instance.LoadTime();
-        timerText.text = "ÇÃ·¹ÀÌ Å¸ÀÓ : " + time;
+        timerText.text = "í”Œë ˆì´ íƒ€ì„ : " + time;
     }
 
     // Update is called once per frame

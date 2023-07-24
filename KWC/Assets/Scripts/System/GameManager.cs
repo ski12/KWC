@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         BossHp = Boss.curHp;
         SceneManager.LoadScene("End");
         
-        Invoke("EndScene", 0.1f);
+        Invoke("EndScene", 1f);
        
     }
     private void EndScene()
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            text.text = ("º¸½ºHP : " + BossHp);
+            text.text = ("ë³´ìŠ¤ HP : " + BossHp);
         }
       
         

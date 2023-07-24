@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
-    
+    public static bool IsInv;
+    public float InvTime = 1.5f;
     public float jumpPower;
     public float speed = 10;
     private Rigidbody2D rb;
@@ -39,11 +42,16 @@ public class PlayerMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         isRun = false;
         playerCurhp = playerMaxhp;
+        IsInv = false;
         
     }
 
     private void FixedUpdate()
     {
+        if(playerCurhp <= 0)
+        {
+            Destroy(gameObject);
+        }
         if (isDash == false)
         {
             x = Input.GetAxisRaw("Horizontal");
@@ -67,10 +75,37 @@ public class PlayerMove : MonoBehaviour
         {
             anim.SetBool("IsRun", false);
         }
+        if (rb.velocity.y < -0.1 && anim.GetBool("IsJump"))
+        {
+            
+            anim.SetBool("IsFalling", true);
+        }
+        else
+        {
+            anim.SetBool("IsFalling", false);
+        }
+
     }
     
     void Update()
     {
+        if(playerCurhp <= 0)
+        {
+            SceneManager.LoadScene("End");
+        }
+
+        if (IsInv)
+        {
+            InvTime -= Time.deltaTime;
+            if(InvTime <= 0)
+            {
+                IsInv = false;
+            }
+        }
+        else
+        {
+            InvTime = 1.5f;
+        }
         if (Input.GetKeyDown(KeyCode.L))
         {
             Boss.curHp -= 5;
@@ -83,15 +118,18 @@ public class PlayerMove : MonoBehaviour
         {
             
             isGround = false;
+            anim.SetBool("onground", false);
             rb.velocity = Vector2.up * jumpPower;
             
         }
         if(isGround == false)
         {
             anim.SetBool("IsJump", true);
+            anim.SetBool("onground", false);
         }
         if(isGround == true)
         {
+            anim.SetBool("onground", true);
             anim.SetBool("IsJump", false);
         }
         
@@ -116,12 +154,12 @@ public class PlayerMove : MonoBehaviour
             defaultSpeed = speed;
             isGround = true;
         }
-        else if(Physics2D.Raycast(transform.position + new Vector3(0.4f, -0.8f, 0), transform.up, -1, GroundCheck))
+        else if(Physics2D.Raycast(transform.position + new Vector3(0.6f, -0.8f, 0), transform.up, -1, GroundCheck))
         {
             defaultSpeed = speed;
             isGround = true;
         }
-        else if(Physics2D.Raycast(transform.position + new Vector3(-0.4f, -0.8f, 0), transform.up, -1, GroundCheck))
+        else if(Physics2D.Raycast(transform.position + new Vector3(-0.8f, -0.8f, 0), transform.up, -1, GroundCheck))
         {
             defaultSpeed = speed;
             isGround = true;
@@ -147,10 +185,22 @@ public class PlayerMove : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position + new Vector3(0, -0.8f, 0), transform.up * -1);
-        Gizmos.DrawRay(transform.position + new Vector3(0.4f, -0.8f, 0), transform.up * -1);
-        Gizmos.DrawRay(transform.position + new Vector3(-0.4f, -0.8f, 0), transform.up * -1);
+        Gizmos.DrawRay(transform.position + new Vector3(.4f, -0.8f, 0), transform.up * -1);
+        Gizmos.DrawRay(transform.position + new Vector3(-.6f, -0.8f, 0), transform.up * -1);
         Gizmos.DrawWireCube(pos.position, boxSize);
         Gizmos.DrawWireCube(Rpos.position, RboxSize);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Destroyer"))
+        {
+            playerCurhp = 0;
+        }
+        if (collision.collider.CompareTag("SlowFlat"))
+        {
+            playerCurhp = 0;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

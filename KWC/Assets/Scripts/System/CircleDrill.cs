@@ -13,17 +13,14 @@ public class CircleDrill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Boss.PhaseCount > 4)
-        {
-            Destroy(gameObject);
-        }
+       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag =="Boss")
         {
-            Boss.curHp -= 10;
+            Boss.curHp -= 15;
         }
     }
 }

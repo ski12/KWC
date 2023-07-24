@@ -24,6 +24,8 @@ public class GearMove : MonoBehaviour
     private Vector2 UpGearSpawn2;
     private Vector2 DownGearSpawn1;
     private Vector2 DownGearSpawn2;
+    [SerializeField]
+    private GameObject Effect;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,10 +57,12 @@ public class GearMove : MonoBehaviour
             Destroy(collision.gameObject);
             if (position1)
             {
+                Instantiate(Effect, transform.position, Quaternion.identity);
                 transform.position = new Vector2(14.6f, -0.4f);
             }
             if (!position1)
             {
+                Instantiate(Effect, transform.position, Quaternion.identity);
                 transform.position = new Vector2(-14.6f, -12.2f);
             }
         }
@@ -69,11 +73,13 @@ public class GearMove : MonoBehaviour
         GearPositionNum = Random.Range(1, 2 + 1);
         if(GearPositionNum == 1)
         {
+            Instantiate(Effect, transform.position, Quaternion.identity);
             transform.position = new Vector2(-14.6f, -12.2f);
             position1 = true;
         }
         else
         {
+            Instantiate(Effect, transform.position, Quaternion.identity);
             transform.position = new Vector2(14.6f, 0.4f);
             position1= false;
         }
